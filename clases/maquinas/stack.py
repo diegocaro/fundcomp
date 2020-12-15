@@ -1,5 +1,6 @@
 # Simulación máquina de stack
 # Código basado en implementación de Alejandro Cisterna Villalobos
+# y en http://ebook.pldworld.com/-huihoo-/book/compiler-construction-using-flex-and-bison/StackMachine.html
 # Autor: Diego Caro
 
 import sys

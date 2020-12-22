@@ -3,17 +3,20 @@
 # y en http://ebook.pldworld.com/-huihoo-/book/compiler-construction-using-flex-and-bison/StackMachine.html
 # Autor: Diego Caro
 
-import sys
 from math import sqrt, exp
 
 def push(s,a): s.append(a)
 def pop(s): return s.pop()
 
-def execute(p):
+def main(f):
     s = list()
-    it = enumerate(p)
-    for i, op in it:
-        if op == 'PUSH': _, a = next(it); push(s, a);         
+    for i,line in enumerate(f):
+        # decoding
+        op, *a = line.strip().split()
+        # executing     
+        if op == 'PUSH':
+            if len(a) == 1: a = int(*a); push(s, a);
+            else: raise Exception('missing value for PUSH')
         elif op == 'POP':  a = pop(s); 
         elif op == 'SQRT': a = pop(s); c = sqrt(a); push(s, c);
         elif op == 'EXP':  a = pop(s); c = exp(a); push(s, c);
@@ -25,21 +28,11 @@ def execute(p):
         else:
             raise Exception('instruction malformed, aborting')
         print(i, op, s)
-    return s
-
-def read(f):
-    program = list()
-    for line in sys.stdin:
-        ops = line.strip().split()
-        if ops[0] == 'PUSH':
-            if len(ops) == 2:
-                ops[1] = int(ops[1])
-            else:
-                raise Exception('missing value for PUSH')
-        program.extend(ops)    
-    # post condition ???
-    return program
- 
-program = read(sys.stdin)
-ans = execute(program)
-print('Ans:',*ans)
+        
+#if __name__ == "__main__":
+#import sys
+#    infile = sys.stdin
+#    if len(sys.argv) > 1 and sys.argv[1] != '-':
+#        infile = open(sys.argv[1], 'r')
+#         
+#    main(infile)

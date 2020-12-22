@@ -1,0 +1,11 @@
+program Stdin
+// Input:    Two integers from standard input
+// Output:   Sum of the two integers
+// Remarks:  
+// -----------------------------------------------------------------------------
+
+10: 8AFF    read R[A] from stdin
+11: 8BFF    read R[B] from stdin
+12: 1CAB    R[C] <- R[A] + R[B]
+13: 9CFF    write R[C] to stdout
+14: 0000    halt

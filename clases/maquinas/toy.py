@@ -1,22 +1,69 @@
+#!/usr/bin/env python3
+
+# ************************************************************************/
+#   Execution: python3 toy.py [--verbose] filename.toy 
+# 
+#   We use variables of type int to store the TOY registers, main
+#   memory, and program counter even though in TOY these quantities
+#   are 16 and 8 bit integers. Python does not have an 8-bit unsigned
+#   type. The type short is not available in Python. Instead, we are
+#   careful to treat all of the variable as if they were the appropriate
+#   type so that the behavior truly models the TOY machine.
+# 
+#   % more multiply.toy
+#   10: 8AFF   read R[A]
+#   11: 8BFF   read R[B]
+#   12: 7C00   R[C] <- 0000
+#   13: 7101   R[1] <- 0001
+#   14: CA18   if (R[A] == 0) goto 18
+#   15: 1CCB   R[C] <- R[C] + R[B]
+#   16: 2AA1   R[A] <- R[A] - R[1]
+#   17: C014   goto 14
+#   18: 9CFF   write R[C]
+#   19: 0000   halt                        
+# 
+#   % python3 toy.py multiply.toy
+#   0002
+#   0004
+#   0008
+# 
+#   % python3 toy.py --verbose multiply.toy
+#   [core dump]
+#   0002
+#   0004
+#   0008
+#   [core dump]
+# 
+# ************************************************************************/
+# Author: Diego Caro <diego.caro.a at usach.cl>
+
 # Based on Computer Science An Interdisciplinary Approach Book
-# https:#introcs.cs.princeton.edu/java/64simulator/TOY.java.html
-# https:#introcs.cs.princeton.edu/java/lectures/keynote/CS.18.MachineII.pdf
-# https:#introcs.cs.princeton.edu/java/62toy/cheatsheet.txt
-# Author: Diego Caro
+#   https:#introcs.cs.princeton.edu/java/64simulator/TOY.java.html
+#   https:#introcs.cs.princeton.edu/java/lectures/keynote/CS.18.MachineII.pdf
+#   https:#introcs.cs.princeton.edu/java/62toy/cheatsheet.txt
+
 
 import re
-
-def fromHex(s):
-    return int(s, base=16) & 0xFFFF
-    
+import numpy as np
+# return a 4-digit hex string corresponding to 16-bit integer n    
 def toHex(n):
     return '{0:04X}'.format(n & 0xFFFF)
+
+# return a 16-bit integer corresponding to the 4-digit hex string s
+def fromHex(s):
+    return int(s, base=16) & 0xFFFF
 
 # write to an array of hex integers, 8 per line to standard output
 def show(a):
     for i in range(len(a)):
         print(toHex(a[i]) + " ", end='')
         if i % 8 == 7: print()
+
+# return a short integer following the two complement rule
+def toShort(n):
+    if n > 0x0FFF:
+        n = n - 0xFFFF - 1
+    return n
 
 class Toy:
     def __init__(self, filename, pc = 0x10):
@@ -68,35 +115,35 @@ class Toy:
             addr = inst         & 255;   # get addr   (bits  0- 7)
 
             # halt
-            if op == 0: break
+            if op == 0x0: break
 
             # stdin 
             if ((addr == 255 and op == 8) or (reg[t] == 255 and op == 10)):
                 mem[255] = fromHex(input());
 
             # Execute
-            if   op ==  1: reg[d] = reg[s] +  reg[t]           # add
-            elif op ==  2: reg[d] = reg[s] -  reg[t]           # subtract
-            elif op ==  3: reg[d] = reg[s] &  reg[t]           # bitwise and
-            elif op ==  4: reg[d] = reg[s] ^  reg[t]           # bitwise xor
-            elif op ==  5: reg[d] = reg[s] << reg[t]           # shift left
-            elif op ==  6: reg[d] = reg[s] >> reg[t]           # shift right
-            elif op ==  7: reg[d] = addr                       # load address
-            elif op ==  8: reg[d] = mem[addr]                  # load
-            elif op ==  9: mem[addr] = reg[d]                  # store
-            elif op == 10: reg[d] = mem[reg[t] & 255]          # load indirect
-            elif op == 11: mem[reg[t] & 255] = reg[d]          # store indirect
-            elif op == 12:                                     # branch if zero 
-                if reg[d] == 0: pc = addr        
-            elif op == 13:                                     # branch if positive
-                if reg[d] >  0: pc = addr         
-            elif op == 14: pc = reg[d]                         # jump indirect
-            elif op == 15: reg[d] = pc; pc = addr              # jump and link
+            if   op == 0x1: reg[d] = reg[s] +  reg[t]           # add
+            elif op == 0x2: reg[d] = reg[s] -  reg[t]           # subtract
+            elif op == 0x3: reg[d] = reg[s] &  reg[t]           # bitwise and
+            elif op == 0x4: reg[d] = reg[s] ^  reg[t]           # bitwise xor
+            elif op == 0x5: reg[d] = reg[s] << reg[t]           # shift left
+            elif op == 0x6: reg[d] = toShort(reg[s] >> reg[t])  # shift right
+            elif op == 0x7: reg[d] = addr                       # load address
+            elif op == 0x8: reg[d] = mem[addr]                  # load
+            elif op == 0x9: mem[addr] = reg[d]                  # store
+            elif op == 0xA: reg[d] = mem[reg[t] & 0xFF]         # load indirect
+            elif op == 0xB: mem[reg[t] & 0xFF] = reg[d]         # store indirect
+            elif op == 0xC:                                     # branch if zero 
+                if toShort(reg[d]) == 0: pc = addr        
+            elif op == 0xD:                                     # branch if positive
+                if toShort(reg[d]) >  0: pc = addr         
+            elif op == 0xE: pc = reg[d]                         # jump indirect
+            elif op == 0xF: reg[d] = pc; pc = addr              # jump and link
 
 
             # stdout
-            if ((addr == 255 and op == 9) or (reg[t] == 255 and op == 11)):
-                print(toHex(mem[255]));
+            if ((addr == 0xFF and op == 0x9) or (reg[t] == 0xFF and op == 0xB)):
+                print(toHex(mem[0xFF]));
 
             reg[0] = 0;                # ensure reg[0] is always 0
             reg[d] = reg[d] & 0xFFFF;  # don't let reg[d] overflow a 16-bit integer

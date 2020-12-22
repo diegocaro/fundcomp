@@ -1,0 +1,9 @@
+program Infinite Loop
+// Input:    -
+// Output:   -
+// Remarks:  This program contains an infinite loop.
+// -----------------------------------------------------------------------------
+
+10: 1000   no-op                         
+11: 1000   no-op                         
+12: C010   goto 10                       

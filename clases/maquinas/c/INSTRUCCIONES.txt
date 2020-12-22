@@ -1,0 +1,58 @@
+El programa funciona con un archivo de lectura en texto plano de nombre "Registros.in"
+
+El formato de este archivo debe ser el siguiente:
+
+La primera línea indica la cantidad de registros.
+
+La segunda línea indica la etiqueta en la que se inicia junto al estado inicial de cada registro (los datos separados por espacios).
+
+La tercera línea se indica la cantidad de instrucciones.
+
+Desde la cuarta línea en adelante se ingresan las instrucciones con el siguiente formato por línea.
+
+En caso de querer realizar un suma a un registro:
+Lw R+ x -> Ly
+
+Donde:
+Lw: número de la etiqueta
+x: registro al que se le aplica la operación
+Ly: etiqueta a la que se salta
+
+______________________
+
+En caso de querer realizar un resta a un registro:
+Lw R- x -> Ly Lz
+
+Donde
+Lw: número de la etiqueta
+x: registro al que se le aplica la operación
+Ly: etiqueta a la que se salta si se logró realizar la operación
+Lz: etiqueta a la que se salta si no se logró realizar la operación
+
+_______________________
+en caso de parar el programa
+Lw HALT
+
+Donde
+Lw: numero de la etiqueta
+
+
+Ejemplo de la suma de 1 + 2
+donde se utilizarán 3 registros 
+el resultado quedará en el registro 0, comenzando con el valor cero
+el registro 1 tiene el primer sumando
+el registro 2 tiene el segundo sumando
+y el programa consta de 5 instrucciones
+
+
+3
+0 0 1 2
+5
+L0 R- 1 -> L1 L2
+L1 R+ 0 -> L0
+L2 R- 2 -> L3 L4
+L3 R+ 0 -> L2
+L4 HALT
+
+
+

@@ -10,7 +10,6 @@ def fromHex(s):
     return int(s, base=16) & 0xFFFF
     
 def toHex(n):
-    #return hex(n & 0xFFFF)
     return '{0:04X}'.format(n & 0xFFFF)
 
 # write to an array of hex integers, 8 per line to standard output
@@ -123,7 +122,7 @@ if __name__ == "__main__":
     if not isVerbose and len(sys.argv) > 2: pc = fromHex(sys.argv[2])
     if     isVerbose and len(sys.argv) > 3: pc = fromHex(sys.argv[3])
 
-    toy = Toy(filename)
+    toy = Toy(filename, pc)
     
     
     if isVerbose:

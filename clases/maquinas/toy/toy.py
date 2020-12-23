@@ -168,8 +168,13 @@ if __name__ == "__main__":
     if not isVerbose and len(sys.argv) > 2: pc = fromHex(sys.argv[2])
     if     isVerbose and len(sys.argv) > 3: pc = fromHex(sys.argv[3])
 
-    toy = Toy(filename, pc)
-    
+    # no command-line arguments
+    if (len(sys.argv) == 1):
+        print("TOY:   invalid command-line options", file=sys.stderr)
+        print("usage: toy.py [--verbose] filename.toy [pc]", file=sys.stderr)
+        sys.exit(-1)
+
+    toy = Toy(filename, pc)    
     
     if isVerbose:
         print('Core Dump of TOY Before Executing')

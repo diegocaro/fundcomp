@@ -42,9 +42,8 @@
 #   https:#introcs.cs.princeton.edu/java/lectures/keynote/CS.18.MachineII.pdf
 #   https:#introcs.cs.princeton.edu/java/62toy/cheatsheet.txt
 
-
 import re
-import numpy as np
+
 # return a 4-digit hex string corresponding to 16-bit integer n    
 def toHex(n):
     return '{0:04X}'.format(n & 0xFFFF)

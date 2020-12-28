@@ -1,0 +1,11 @@
+programa Entrada
+// Entrada: Dos enteros desde teclado
+// Saluda:  Suma de los dos enteros
+// Comentarios:  
+// -------------------------------------
+
+10: 8AFF    asignar R[A] desde el teclado
+11: 8BFF    asignar R[B] desde el teclado
+12: 1CAB    R[C] <- R[A] + R[B]
+13: 9CFF    imprimir R[C] a pantalla
+14: 0000    terminar

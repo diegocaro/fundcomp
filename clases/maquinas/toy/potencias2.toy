@@ -1,0 +1,13 @@
+programa Potencias de 2
+// Entrada: Ninguna    
+// Salida:  Imprime las potencias positivas de 2
+// -----------------------------------------------------------------------------
+
+00: 0001   1
+
+10: 8A00   RA <- mem[00]                a = 1
+                                        Mientras a > 0:
+11: 9AFF   write RA                        Imprimir a
+12: 1AAA   RA <- RA + RA                   a = a + a
+13: DA11   if (RA > 0) goto 11         
+14: 0000   halt

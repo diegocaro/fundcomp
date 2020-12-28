@@ -1,0 +1,30 @@
+programa Multiplicacion
+// Entrada: Dos enteros desde teclado
+// Salida:  El resultado de la multiplicación
+// Comentarios: Esta es una forma muy lenta de multiplicar.
+// Autor: Kevin Wayne
+
+-----------------------------------------------------------------------------
+pos valor  codigo TOY (para personas)    Pseudo código
+-----------------------------------------------------------------------------
+10: 8AFF   read R[A]                     Leer a
+11: 8BFF   read R[B]                     Leer b
+
+12: 7C00   R[C] <- 0000                  c = 0;
+13: 7101   R[1] <- 0001                  la constante 1
+
+14: CA18   if (R[A] == 0) goto 18        Mientras a != 0: 
+15: 1CCB   R[C] <- R[C] + R[B]              c = c + b;
+16: 2AA1   R[A] <- R[A] - R[1]              a = a - 1;
+17: C014   goto 14                       
+
+18: 9CFF   write R[C]                    Imprimir c     
+19: 0000   halt                          
+-----------------------------------------------------------------------------
+
+Nota: toy.py ignora todas las líneas que no son de la forma
+
+    XX: YYYY  ... 
+
+donde XX son dos dígitos hex, YYYY son cuatro digitos hex, y ... con comentarios.
+El número de espacios no son importantes.

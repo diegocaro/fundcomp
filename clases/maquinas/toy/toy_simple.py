@@ -1,8 +1,6 @@
 # Based on Computer Science An Interdisciplinary Approach Book
-# https:#introcs.cs.princeton.edu/java/64simulator/TOY.java.html
 # https:#introcs.cs.princeton.edu/java/lectures/keynote/CS.18.MachineII.pdf
-# https://introcs.cs.princeton.edu/java/62toy/cheatsheet.txt
-# Autor: Diego Caro
+# Author: Diego Caro
 
 def main(f):
     pc = 0x10 # contador de programa

@@ -1,0 +1,16 @@
+programa Suma
+// Entrada: Números en ubicaciones 00 y 01 de la memoria
+// Saluda:  Suma de dos enteros 5 + 8 = D guardados
+//          en la ubicación de memoria 02
+//
+// -----------------------------------------------------
+pos valor  codigo TOY (para personas)
+00: 0008   (0000 0000 0000 1000, 0x8) 
+01: 0005   (0000 0000 0000 0101, 0x5)  
+02: 0000   (0000 0000 0000 0000, 0x0) 
+
+10: 8A00   R[A] <- mem[00]               
+11: 8B01   R[B] <- mem[01]               
+12: 1CAB   R[C] <- R[A] + R[B]           
+13: 9C02   mem[02] <- R[C]               
+14: 0000   halt                          

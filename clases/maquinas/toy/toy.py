@@ -43,6 +43,60 @@
 #   https:#introcs.cs.princeton.edu/java/62toy/cheatsheet.txt
 
 import re
+import sys
+
+
+#-----------------------------------------------------------------------
+# Helper functions for standard input
+# Extracted from https://introcs.cs.princeton.edu/python/code/stdio.py.html
+
+# Change sys.stdin so it provides universal newline support. 
+sys.stdin = open(sys.stdin.fileno(), 'r', newline=None)
+
+# Standard Input Buffer
+_buffer = ''
+
+def _readRegExp(regExp):
+    """
+    Discard leading white space characters from standard input. Then read
+    from standard input and return a string matching regular expression
+    regExp.  Raise an EOFError if no non-whitespace characters remain
+    in standard input.  Raise a ValueError if the next characters to
+    be read from standard input do not match 'regExp'.
+    """
+    global _buffer
+    if isEmpty():
+        raise EOFError()
+    compiledRegExp = re.compile(r'^\s*' + regExp)
+    match = compiledRegExp.search(_buffer)
+    if match is None:
+        raise ValueError()
+    s = match.group()
+    _buffer = _buffer[match.end():]
+    return s.lstrip()
+
+def isEmpty():
+    """
+    Return True if no non-whitespace characters remain in standard
+    input. Otherwise return False.
+    """
+    global _buffer
+    while _buffer.strip() == '':
+        line = sys.stdin.readline()
+        if line == '': return True
+        _buffer += line
+    return False
+
+
+def inputHex():
+    """
+    Discard leading white space characters from standard input. Then
+    read from standard input a sequence of characters comprising an
+    hex integer.
+    """
+    return _readRegExp(r'[-+]?(0?[xX]?[\dA-Fa-f]+)')
+
+#-----------------------------------------------------------------------
 
 # return a 4-digit hex string corresponding to 16-bit integer n    
 def toHex(n):
@@ -118,7 +172,7 @@ class Toy:
 
             # stdin 
             if ((addr == 255 and op == 8) or (reg[t] == 255 and op == 10)):
-                mem[255] = fromHex(input());
+                mem[255] = fromHex(inputHex());
 
             # Execute
             if   op == 0x1: reg[d] = reg[s] +  reg[t]           # add
@@ -151,8 +205,6 @@ class Toy:
         self.pc = pc # save last pc to attribute
             
 if __name__ == "__main__":
-    import sys
-    
     # -v or --verbose is an optional first command-line argument
     isVerbose = False
     if len(sys.argv) > 1 and sys.argv[1] in ('-v','--verbose'):

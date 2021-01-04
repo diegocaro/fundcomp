@@ -21,17 +21,19 @@ def run(f, verbose=False):
     
     for i,line in enumerate(f):
         matcher = pattern.match(line)
+
+        # skip empty line
         if matcher is None: continue
 
         # decoding
         op = matcher[1]
         a = matcher[2]
         
-        if verbose: print(i, op, end=' ')
+        if verbose: print(i, op, a, end=' ')
 
         # executing     
         if op == 'PUSH':
-            if len(a) > 0: a = int(matcher[2]); push(s, a);
+            if len(a) > 0: a = int(a); push(s, a);
             else: raise Exception('missing value for PUSH')
         elif op == 'POP':  a = pop(s); 
         elif op == 'SQRT': a = pop(s); c = sqrt(a); push(s, c);

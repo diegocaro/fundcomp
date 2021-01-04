@@ -1,4 +1,4 @@
-# Simulación máquina de stack
+# Panquque: Un simulador de máquina de stack
 # Código basado en implementación de Alejandro Cisterna Villalobos
 # y en http://ebook.pldworld.com/-huihoo-/book/compiler-construction-using-flex-and-bison/StackMachine.html
 # Autor: Diego Caro
@@ -63,8 +63,8 @@ if __name__ == "__main__":
     
     # no command-line arguments
     if (len(sys.argv) == 1):
-        print("STACK:   invalid command-line options", file=sys.stderr)
-        print("usage: stack.py [--verbose] filename.in", file=sys.stderr)
+        print("PANQUEQUE:   invalid command-line options", file=sys.stderr)
+        print("usage: panqueque.py [--verbose] filename.in", file=sys.stderr)
         sys.exit(-1)
     
     program = open(filename, 'r')

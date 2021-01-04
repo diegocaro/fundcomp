@@ -64,7 +64,7 @@ if __name__ == "__main__":
     # no command-line arguments
     if (len(sys.argv) == 1):
         print("PANQUEQUE:   invalid command-line options", file=sys.stderr)
-        print("usage: panqueque.py [--verbose] filename.in", file=sys.stderr)
+        print("usage: panqueque.py [--verbose] filename.pan", file=sys.stderr)
         sys.exit(-1)
     
     program = open(filename, 'r')

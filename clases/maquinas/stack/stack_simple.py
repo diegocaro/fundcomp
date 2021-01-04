@@ -1,8 +1,3 @@
-# Simulación máquina de stack
-# Código basado en implementación de Alejandro Cisterna Villalobos
-# y en http://ebook.pldworld.com/-huihoo-/book/compiler-construction-using-flex-and-bison/StackMachine.html
-# Autor: Diego Caro
-
 from math import sqrt, exp
 
 def push(s,a): s.append(a)
@@ -22,6 +17,7 @@ def main(f):
         elif op == 'EXP':  a = pop(s); c = exp(a); push(s, c);
         elif op == 'ADD':  a = pop(s); b = pop(s); c = b+a; push(s, c);
         elif op == 'MULT': a = pop(s); b = pop(s); c = b*a; push(s, c);
+        elif op == 'SUB':  a = pop(s); b = pop(s); c = b-a; push(s, c);
         elif op == 'DIV':  a = pop(s); b = pop(s); c = b/a; push(s, c);
         elif op == 'MOD':  a = pop(s); b = pop(s); c = b%a; push(s, c);
         elif op == 'POW':  a = pop(s); b = pop(s); c = b^a; push(s, c);
@@ -29,10 +25,7 @@ def main(f):
             raise Exception('instruction malformed, aborting')
         print(i, op, s)
         
-#if __name__ == "__main__":
-#import sys
-#    infile = sys.stdin
-#    if len(sys.argv) > 1 and sys.argv[1] != '-':
-#        infile = open(sys.argv[1], 'r')
-#         
-#    main(infile)
+if __name__ == "__main__":
+    import sys
+    infile = open(sys.argv[1], 'r')         
+    main(infile)

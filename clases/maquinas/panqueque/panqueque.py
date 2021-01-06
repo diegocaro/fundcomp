@@ -25,24 +25,20 @@
 #    Anthony Aaby, Compiler Construction using Flex and Bison (draft year2005).
 #    Available at https://web.archive.org/web/20080421194011/http://cs.wwc.edu/~aabyan/464/Book/StackMachine.html
 
-
 import sys
 import re
 from math import exp
 
 class Panqueque:
-    def __init__(self, filename, pc):
+    def __init__(self, filename):
         # main stack
         self.stack = [0]*32
         self.code = [0]*32
-        self.pc = pc
+        self.label = dict()
         self.mem = [0]*32
         self.top = 0
-        
-        self._nop = ('NOP', '', 0)
-        
-        self.label = dict()
-        
+        self.pc = 0
+
         #regexp = "^([A-Z]{3,5})[ \t]*([\-0-9]*)";
         regexp = "^[ \t]*((?P<label>[A-Za-z]+):|(?P<op>[A-Z]{2,5}))[ \t]*(?P<arg>[\-0-9A-Za-z]*)"
         pattern = re.compile(regexp)
@@ -95,7 +91,7 @@ class Panqueque:
             elif op == 'DIV':  stack[top-1] = stack[top-1] / stack[top]; top -= 1;
             elif op == 'DIVI':  stack[top-1] = stack[top-1] // stack[top]; top -= 1;
             elif op == 'MOD':  stack[top-1] = stack[top-1] % stack[top]; top -= 1;
-            elif op == 'POW':  stack[top-1] = stack[top-1] ^ stack[top]; top -= 1;
+            elif op == 'POW':  stack[top-1] = stack[top-1] ** stack[top]; top -= 1;
             elif op == 'EQ':   stack[top-1] = int(stack[top-1] == stack[top]); top -= 1;
             elif op == 'GT':   stack[top-1] = int(stack[top-1] > stack[top]); top -= 1;
             elif op == 'LT':   stack[top-1] = int(stack[top-1] < stack[top]); top -= 1;
@@ -133,25 +129,19 @@ if __name__ == "__main__":
     isVerbose = False
     if len(sys.argv) > 1 and sys.argv[1] in ('-v','--verbose'):
         isVerbose = True
-    
+
     # the filename is the next command-line argument
     filename = None
     if not isVerbose and len(sys.argv) > 1: filename = sys.argv[1]
     if     isVerbose and len(sys.argv) > 2: filename = sys.argv[2]
-    
-    # the initial value of the PC is an optional last command-line argument
-    pc = 0
-    if not isVerbose and len(sys.argv) > 2: pc = int(sys.argv[2])
-    if     isVerbose and len(sys.argv) > 3: pc = int(sys.argv[3])
 
-    
     # no command-line arguments
     if (len(sys.argv) == 1):
         print("PANQQ:   invalid command-line options", file=sys.stderr)
         print("usage: panqq.py [--verbose] filename.pan [pc]", file=sys.stderr)
         sys.exit(-1)
 
-    pan = Panqueque(filename, pc)
+    pan = Panqueque(filename)
     pan.run(isVerbose)
 
     if isVerbose:

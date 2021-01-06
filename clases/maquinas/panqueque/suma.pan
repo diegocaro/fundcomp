@@ -9,3 +9,5 @@
 PUSH 2      2
 PUSH 5      2; 5
 ADD         7
+WRITE
+HALT

@@ -2,12 +2,10 @@
 # Apila dos números y calcula la suma de ellos
 # Autor: Diego Caro
 #
-# ----------------
-# codigo    pila
-# ----------------
-
-PUSH 2      2
-PUSH 5      2; 5
-ADD         7
-WRITE
-HALT
+# --------------------------
+# codigo   pseudocodigo   pila
+# --------------------------
+PUSH 2     # x = 2        [2 ]
+PUSH 5     # y = 5        [2, 5]
+ADD        # c = x+y      [7]
+SEND       # print c      [ ]

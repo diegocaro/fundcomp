@@ -1,3 +1,4 @@
 PUSH 2
 PUSH 4
 DIV
+SEND

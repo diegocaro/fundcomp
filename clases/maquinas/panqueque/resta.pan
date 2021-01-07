@@ -8,5 +8,4 @@
 PUSH 2      # 2
 PUSH 5      # 2; 5
 SUB         # 2-5
-WRITE
-HALT
+SEND

@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 # Panqueque: A simple simulator of a Canonical Stack Machine
 # 
 # This is an adaptation of the Canonical Stack Machine presented by Koopman 
@@ -16,7 +18,7 @@
 #        stack plus operations to be a fully Turing Complete
 #        machine. Hopefully it will be ready during 2021.
 # 
-# ## References
+# References:
 # 
 # -  Koopman, P. Stack Computers: the new wave, Ellis Horwood, 1989.
 #    Available at https://users.ece.cmu.edu/~koopman/stack_computers/index.html

@@ -107,7 +107,7 @@ class Panqueque:
             elif op == 'SWAP': tmp = stack[top]; stack[top] = stack[top-1]; stack[top-1] = tmp
             # condition ops
             elif op == 'EQ':   stack[top-1] = int(stack[top-1] == stack[top]); top -= 1;
-            elif op == 'GT':   stack[top-1] = int(stack[top-1] > stack[top]); top -= 1;
+            elif op == 'LT':   stack[top-1] = int(stack[top-1] < stack[top]); top -= 1; 
             # branch ops
             elif op == 'JUMP': 
                 if arg not in label: print('label not found, aborting'); break

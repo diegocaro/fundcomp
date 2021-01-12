@@ -21,7 +21,7 @@ def main(f):
         elif op == 'MULT': push(s, pop(s) * pop(s));
         elif op == 'SUB':  push(s, pop(s) - pop(s));
         elif op == 'DIV':  a = pop(s); push(s, pop(s) / a);
-        elif op == 'MOD':  push(s, pop(s) % pop(s));
+        elif op == 'MOD':  a = pop(s); push(s, pop(s) % a);
         elif op == 'DUP':  a = pop(s); push(s,a); push(s,a);
         elif op == 'OVER': a,b = pop(s), pop(s); push(s,b); push(s,a); push(s,b)
         elif op == 'SWAP': a,b = pop(s), pop(s); push(s,a); push(s,b)

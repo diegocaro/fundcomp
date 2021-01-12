@@ -4,13 +4,12 @@
 # Para ver el resultado ejecuta panqueque con la opción -v
 #    python3 panqueque.py -v minv2.pan
 #
-PUSH 5  # agrega 5 al stack
-PUSH 9  # agrega 9 al stack
-OVER
-OVER
-LT
-JMPZ end
-SWAP
-end:
-SWAP
-POP
+# OPS         pseudocodigo      stack
+PUSH 9     # a = 9             [a, ]
+PUSH 15     # b = 15            [a, b ]
+OVER        #                   [a, b, a ]
+OVER        #                   [a, b, a, b ]
+LT          # if a < b          [a, b, a < b?]
+JMPZ end    #                   [a, b]
+POP         #                   [a ]
+end:        #                   [a ]

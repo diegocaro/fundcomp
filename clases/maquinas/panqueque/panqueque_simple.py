@@ -19,7 +19,7 @@ def main(f):
         elif op == 'EXP':  push(s, exp(pop(s)));
         elif op == 'ADD':  push(s, pop(s) + pop(s));
         elif op == 'MULT': push(s, pop(s) * pop(s));
-        elif op == 'SUB':  push(s, pop(s) - pop(s));
+        elif op == 'SUB':  a = pop(s); push(s, pop(s) - a);
         elif op == 'DIV':  a = pop(s); push(s, pop(s) / a);
         elif op == 'MOD':  a = pop(s); push(s, pop(s) % a);
         elif op == 'DUP':  a = pop(s); push(s,a); push(s,a);

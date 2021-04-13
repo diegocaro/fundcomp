@@ -1,10 +1,10 @@
-# Introducción a los Fundamentos de Computación
+# Introducción a los Fundamentos de Computación 2021-1
 
-Profesor: Diego Caro
+Profesor: Diego Caro <diego.caro.a arroba usach>
 
-Horario: L4 V4
+Horario: Lunes y Viernes de 14.20 a 15.20 vía Zoom
 
-Ayudante: Clemente Aguilar
+Ayudante: Clemente Aguilar <clemente.aguilar arroba usach>
 
 
 

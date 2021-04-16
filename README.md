@@ -29,4 +29,7 @@ Semana | Fecha | Teoría | Ejercicios |
 14 | Agosto 9 | Charla invitada Prof. DIINF | -
 15 | Agosto 16 | Charla invitada Prof. DIINF | -
 
+## Reconocimientos
+<a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Licencia Creative Commons" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/80x15.png" /></a> Los materiales del curso están disponibles bajo la licencia [Licencia Creative Commons Atribución 4.0 Internacional](https://creativecommons.org/licenses/by/4.0/) (a menos que se indique lo contrario).
+
  Unversidad de Santiago de Chile, Departamento de Ingeniería Informática

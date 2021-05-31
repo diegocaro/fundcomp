@@ -1,4 +1,4 @@
-## Ayudantía 04: Resolución de problemas
+## Clase05: Resolución de problemas
 
 **Nota**: Este documento es una adaptación del documento "Problem Solving" escrito por el profesor Timothy Peil de la Universidad Estatal de Minnesota. El documento original está disponible en [http://web.mnstate.edu/peil/M110/Worksheet/PolyaProblemSolve.pdf](). En 1945 el matemático George Polya publicó el libro **Cómo resolverlo**, que en corto tiempo se convirtió en éxito de ventas, traduciéndose a 17 idiomas. En este libro, Polya identifica cuatro principios básicos para resolver problemas. Estos principios son los que usaremos el resto del semestre para resolver problemas.
 

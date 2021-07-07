@@ -57,9 +57,9 @@ class Panqueque:
         self.size_code = 0
         self.label = dict()
         self.top = 0
-        self.pc = 0
+        self.pa = 0
 
-        regexp = "^[ \t]*((?P<label>[A-Za-z]+):|(?P<op>[A-Z]{2,4}))[ \t]*(?P<arg>[\-\.0-9A-Za-z]*)"
+        regexp = "^[ \t]*((?P<label>[A-Za-z]+):|(?P<op>[A-Z]+))[ \t]*(?P<arg>[\-\.0-9A-Za-z]*)"
         pattern = re.compile(regexp)
         
         file = open(filename, 'r')
@@ -86,15 +86,19 @@ class Panqueque:
         print()
 
     def run(self, verbose=False):
-        pc = self.pc
+        pa = self.pa
         code = self.code
         stack = self.data_stack
         top = self.top
         label = self.label
         
+        if verbose: 
+            print('pa', 'op', 'arg', 'top', 'stack', sep='\t')
+            print(pa, '-', '-', '-', [], sep='\t')
+        
         while True:
-            (op, arg, i) = code[pc]
-            pc += 1
+            (op, arg, i) = code[pa]
+            pa += 1
             
             # executing
             if op == 'PUSH':
@@ -117,25 +121,27 @@ class Panqueque:
             # branch ops
             elif op == 'JUMP': 
                 if arg not in label: print('label not found, aborting'); break
-                pc = label[arg]; 
+                pa = label[arg]; 
             elif op == 'JMPZ':
                 if arg not in label: print('label not found, aborting'); break
-                if stack[top] == 0: pc = label[arg];
+                if stack[top] == 0: pa = label[arg];
                 top -= 1;
             # input/output ops
             elif op == 'READ': top += 1; stack[top] = float(input());
             elif op == 'SEND': print(stack[top]); top -= 1;
             else:
-                print('instruction malformed, aborting'); break
+                print("instruction '{}' malformed, aborting".format(op));
+                break
 
             if top < 0: print('stack underflow, aborting'); break
-                
-            # print(i, op, arg, top, stack[1:top+1], sep='\t')
+            if top > 256: print('stack overflow, aborting'); break
+     
+            if verbose: print(pa, op, arg, top, stack[1:top+1], sep='\t')
             
             # halt if we reached the end of CODE
-            if pc >= self.size_code: break
+            if pa >= self.size_code: break
             
-        self.pc = pc # save last pc to attribute            
+        self.pa = pa # save last pa to attribute            
         self.top = top
         
 if __name__ == "__main__":
@@ -154,7 +160,7 @@ if __name__ == "__main__":
     # no command-line arguments
     if (len(sys.argv) == 1):
         print("PANQQ:   invalid command-line options", file=sys.stderr)
-        print("usage: panqq.py [--verbose] filename.pan [pc]", file=sys.stderr)
+        print("usage: panqueque.py [--verbose] filename.pan", file=sys.stderr)
         sys.exit(-1)
 
     pan = Panqueque(filename)
